@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
+
+.ControlBar {
+  padding: 0.6em;
+  border-top: 1px solid #999999;
+  display: flex;
+  align-items: center;
+
+  color: white;
+  position: absolute; 
+  left: 0 ; right: 0; bottom: 0; 
+  height:5em;
+}
+
+.fadeOut{
+  opacity:0;
+  transition: opacity 0.3s;
+
+}
+.fadeIn{
+  opacity:1;
+  background-color: rgba(31, 31, 31, 0.4);
+  transition: opacity 0.3s;
+}
+
+.worlds {
+  margin: none;
+  margin-left: 11%;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 4em;
+  font-family: 'DotGothic16', sans-serif;
+}
+
+.album {
+  height: 3.5em;
+}
+
+.songInfo {
+  padding: 20px;
+}
+
+.track {
+  font-family: 'DotGothic16', sans-serif;
+}
+
+.artist {
+  font-family: 'DotGothic16', sans-serif;
+  font-size: 13px;
+  color: grey;
+}
+
+.controls {
+  position:absolute;
+  left: 46%;
+}
+
+.button {
+  cursor: pointer;
+  height: 1.5em !important;
+  width: 1.5em !important;
+  margin-right: 30px
+}
+
+.fullscreen {
+  margin-left: auto;
+}
