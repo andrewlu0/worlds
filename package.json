@@ -17,6 +17,7 @@
     "express-session": "^1.17.1",
     "fast-average-color": "^6.3.0",
     "next": "^10.0.8",
+    "next-images": "^1.7.0",
     "path-match": "^1.2.4",
     "query-string": "^6.14.1",
     "react": "17.0.1",

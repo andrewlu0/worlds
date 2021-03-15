@@ -13,8 +13,8 @@ import { stateContext } from "react-three-fiber";
 
 export default function GraphPage({ data, user }) {
   const [player, setPlayer] = useState(null);
-  const [fullScreen, setFullScreen] = useState(false);
   const [playbackState, setPlaybackState] = useState(null);
+  const [audioAnalysis, setAudioAnalysis] = useState(null);
 
   const handle = useFullScreenHandle();
 
@@ -33,7 +33,6 @@ export default function GraphPage({ data, user }) {
       },
       volume: 0.5,
     });
-    console.log(player);
     // Error handling
     player.addListener("initialization_error", ({ message }) => {
       console.error(message);
@@ -52,6 +51,8 @@ export default function GraphPage({ data, user }) {
     player.addListener("player_state_changed", (state) => {
       if (!state) return;
       setPlaybackState(state);
+      const id = state.track_window.current_track.id;
+      updateAudioAnalysis(id);
     });
 
     // Ready
@@ -78,6 +79,22 @@ export default function GraphPage({ data, user }) {
     return artists;
   };
 
+  const updateAudioAnalysis = async (id) => {
+    const config = {
+      headers: { Authorization: "Bearer " + data["access_token"] },
+    };
+    try {
+      const audio = await get(
+        "https://api.spotify.com/v1/audio-analysis/" + id,
+        config
+      );
+      console.log(audio)
+      setAudioAnalysis(audio);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const cb = (token) => {
     return token;
   };
@@ -97,7 +114,6 @@ export default function GraphPage({ data, user }) {
   const back = async () => {
     const state = await player.getCurrentState();
     setPlaybackState(state);
-    console.log(state)
     if (
       state.position > 3000 ||
       state.track_window.previous_tracks.length == 0
@@ -108,15 +124,29 @@ export default function GraphPage({ data, user }) {
     }
   };
 
-  if (playbackState) {
+  if (!playbackState) {
+    console.log("not playback")
+    return (
+      <>
+        <Script url="https://sdk.scdn.co/spotify-player.js" />
+        <Connect name={user.display_name.split(" ")[0]} />
+      </>
+    );
+  } else if (!user) {
+    return (
+      <>
+        <Script url="https://sdk.scdn.co/spotify-player.js" />
+        <Home />
+      </>
+    );
+  } else {
     return (
       <>
         <Script url="https://sdk.scdn.co/spotify-player.js" />
         <FullScreen handle={handle}>
           <div className={styles.container}>
-            <div className={styles.scene}>
-              <Scene />
-            </div>
+            <p>tempo : {audioAnalysis ? audioAnalysis.track.tempo : null}</p>
+            <Scene tempo = {audioAnalysis ? audioAnalysis.track.tempo : null}/>
           </div>
           <ControlBar
             paused={playbackState.paused}
@@ -132,20 +162,10 @@ export default function GraphPage({ data, user }) {
             next={next}
             back={back}
             full={() => {
-              !fullScreen ? handle.enter() : handle.exit();
-              setFullScreen(!fullScreen);
+              !handle.active ? handle.enter() : handle.exit();
             }}
           />
         </FullScreen>
-      </>
-    );
-  } else if (!user) {
-    return <Home />;
-  } else {
-    return (
-      <>
-        <Script url="https://sdk.scdn.co/spotify-player.js" />
-        <Connect name={user.display_name.split(" ")[0]} />
       </>
     );
   }

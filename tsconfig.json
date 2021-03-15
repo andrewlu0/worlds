@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/shaders/index.js", "components/shaders/BlendingShader.js", "components/shaders/RefractionShader.js"  ],
   "exclude": [
     "node_modules"
   ]
