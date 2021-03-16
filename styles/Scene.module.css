@@ -1,0 +1,10 @@
+.album {
+  height: 30%;
+  position:absolute;
+  
+  z-index: 2;
+}
+
+.canvas {
+  
+}

@@ -88,7 +88,7 @@ export default function GraphPage({ data, user }) {
         "https://api.spotify.com/v1/audio-analysis/" + id,
         config
       );
-      console.log(audio)
+      console.log(audio);
       setAudioAnalysis(audio);
     } catch (err) {
       console.error(err);
@@ -125,7 +125,7 @@ export default function GraphPage({ data, user }) {
   };
 
   if (!playbackState) {
-    console.log("not playback")
+    console.log("not playback");
     return (
       <>
         <Script url="https://sdk.scdn.co/spotify-player.js" />
@@ -146,7 +146,10 @@ export default function GraphPage({ data, user }) {
         <FullScreen handle={handle}>
           <div className={styles.container}>
             <p>tempo : {audioAnalysis ? audioAnalysis.track.tempo : null}</p>
-            <Scene tempo = {audioAnalysis ? audioAnalysis.track.tempo : null}/>
+            <Scene
+              tempo={audioAnalysis ? audioAnalysis.track.tempo : null}
+              track={playbackState}
+            />
           </div>
           <ControlBar
             paused={playbackState.paused}

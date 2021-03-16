@@ -1,8 +1,9 @@
 import * as THREE from "three"
 import { useRef, useMemo } from "react";
 import { useFrame } from "react-three-fiber";
+import React from "react";
 
-const Stars = () => {
+const Stars = React.memo(() => {
   let group = useRef();
   let theta = 0;
   
@@ -33,6 +34,6 @@ const Stars = () => {
       ))}
     </group>
   );
-};
+});
 
 export default Stars;
