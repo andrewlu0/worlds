@@ -145,7 +145,7 @@ export default function GraphPage({ data, user }) {
         <Script url="https://sdk.scdn.co/spotify-player.js" />
         <FullScreen handle={handle}>
           <div className={styles.container}>
-            <p>tempo : {audioAnalysis ? audioAnalysis.track.tempo : null}</p>
+            {/* <p>tempo : {audioAnalysis ? audioAnalysis.track.tempo : null}</p> */}
             <Scene
               tempo={audioAnalysis ? audioAnalysis.track.tempo : null}
               track={playbackState}
