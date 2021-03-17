@@ -20,9 +20,15 @@ export default function Effects() {
   ]);
   useFrame(() => composer.current.render(), 1);
   return (
-    <effectComposer ref={composer} args={[gl]}>
-      <renderPass attachArray="passes" scene={scene} camera={camera} />
-      <unrealBloomPass attachArray="passes" args={[aspect, 0.5, 0.5, 0]} />
-    </effectComposer>
+    <>
+      <mesh>
+        <sphereBufferGeometry args={[40, 320, 320]} position={[0,90,100]}/>
+        <meshBasicMaterial />
+      </mesh>
+      <effectComposer ref={composer} args={[gl]}>
+        <renderPass attachArray="passes" scene={scene} camera={camera} />
+        <unrealBloomPass attachArray="passes" args={[aspect, 0.6, 0.6, 0]} />
+      </effectComposer>
+    </>
   );
 }
