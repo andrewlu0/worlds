@@ -13,20 +13,14 @@ import Stars from "./Stars";
 import Effects from "./post/Effects";
 import Plane from "./Plane"
 
-interface SceneProps {
-  tempo: any;
-  track: any;
-}
-
-export const Scene: React.FC<SceneProps> = React.memo(({ track, tempo }) => {
-  const img_url = track.track_window.current_track.album.images[2].url;
+export const Scene = React.memo((props) => {
+  const img_url = props.track.track_window.current_track.album.images[2].url;
   const mouse = useRef([0, 0]);
   const onMouseMove = useCallback(
     ({ clientX: x, clientY: y }) =>
       (mouse.current = [x - window.innerWidth / 2, y - window.innerHeight / 2]),
     []
   );
-  console.log(track.track_window.current_track.album.images[2].url);
   return (
     <>
       <img className={styles.album + " fade-in"} src={img_url} />
@@ -39,7 +33,7 @@ export const Scene: React.FC<SceneProps> = React.memo(({ track, tempo }) => {
           <fog attach="fog" args={["white", 0, 26]} />
           {/* <ambientLight /> */}
           <pointLight args={[0xff0000, 1, 100]} position={[10, 10, 10]} />
-          <Plane tempo={tempo} paused={track.paused} />
+          <Plane tempo={props.tempo} paused={props.track.paused} />
           <Stars />
           <Effects />
         </Suspense>

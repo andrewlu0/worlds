@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/shaders/index.js", "components/shaders/LandscapeShader.js", "components/shaders/RefractionShader.js", "components/shaders/LandscapeShader.js", "components/post/Effects.js", "components/World2.js"  ],
+  ],
   "exclude": [
     "node_modules"
   ]
